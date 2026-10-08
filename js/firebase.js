@@ -307,3 +307,25 @@ window.addEventListener(
 
     }
 );
+export async function clearSquare(
+    squareId
+){
+
+    const squareRef =
+        doc(
+            db,
+            "squares",
+            squareId
+        );
+
+    await updateDoc(
+        squareRef,
+        {
+            claimed: false,
+            playerId: null,
+            displayName: "",
+            avatar: ""
+        }
+    );
+
+}
