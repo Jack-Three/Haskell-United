@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Trading Cards | Haskell United Way</title>
+
+css/style.css
+
+<style>
+
+.page-header{
+    text-align:center;
+    margin:30px 0;
+}
+
+.empty-state{
+    background:white;
+    border-radius:16px;
+    padding:40px;
+    text-align:center;
+    box-shadow:var(--shadow);
+}
+
+.loading{
+    text-align:center;
+    padding:40px;
+}
+
+.card-stat{
+    display:flex;
+    justify-content:space-between;
+    margin-top:8px;
+    font-size:.9rem;
+}
+
+.card-date{
+    margin-top:12px;
+    color:#666;
+    font-size:.8rem;
+}
+
+.avatar-large{
+    font-size:5rem;
+    text-align:center;
+    padding:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container">
+
+        <div class="logo-row">
+            <h1>🏈 Haskell United Way</h1>
+            <p>Trading Card Gallery</p>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="board.html">Board</a>
+            <a href="cards.html">Trading Cards</a>
+            halloffame.htmlHall of Fame</a>
+            admin.htmlAdmin</a>
+        </nav>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <div class="page-header">
+
+        <h2>Trading Card Collection</h2>
+
+        <p>
+            Every participant who claims a square
+            receives a collectible trading card.
+        </p>
+
+    </div>
+
+    <div id="cardCount" class="text-center mb-20">
+        Loading Players...
+    </div>
+
+    <div id="cardsContainer" class="cards-grid">
+
+        <div class="loading">
+            Loading cards...
+        </div>
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+
+    <p>Haskell United Way NFL Squares</p>
+
+    <p>Minnesota Vikings vs New Orleans Saints</p>
+
+</footer>
+
+<script type="module">
+
+import {
+    db
+}
+from "./js/firebase.js";
+
+import {
+    collection,
+    getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const cardsContainer =
+    document.getElementById(
+        "cardsContainer"
+    );
+
+const cardCount =
+    document.getElementById(
+        "cardCount"
+    );
+
+loadCards();
+
+async function loadCards(){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "players"
+                )
+            );
+
+        const players = [];
+
+        snapshot.forEach(doc => {
+
+            players.push({
+                id: doc.id,
+                ...doc.data()
+            });
+
+        });
+
+        renderCards(players);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        cardsContainer.innerHTML = `
+            <div class="empty-state">
+                Unable to load cards.
+            </div>
+        `;
+
+    }
+
+}
+
+function renderCards(players){
+
+    cardCount.innerHTML = `
+        <strong>${players.length}</strong>
+        Trading Cards Created
+    `;
+
+    if(players.length === 0){
+
+        cardsContainer.innerHTML = `
+            <div class="empty-state">
+                <h3>No Players Yet</h3>
+                <p>
+                    Visit the board and claim a square.
+                </p>
+                <a
+                    href="board.html"
+                    class="btn-primary">
+                    Claim A Square
+                </a>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    cardsContainer.innerHTML = "";
+
+    players.forEach(player => {
+
+        let themeClass =
+            "theme-unitedway";
+
+        if(player.avatar === "💜")
+            themeClass = "theme-vikings";
+
+        if(player.avatar === "⚜️")
+            themeClass = "theme-saints";
+
+        if(player.avatar === "🎳")
+            themeClass = "theme-bowling";
+
+        if(player.avatar === "🎣")
+            themeClass = "theme-fishing";
+
+        if(player.avatar === "🦌")
+            themeClass = "theme-hunting";
+
+        if(player

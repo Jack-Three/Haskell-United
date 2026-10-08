@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Board | Haskell United Way</title>
+
+css/style.css
+
+<style>
+
+.board-header{
+    text-align:center;
+    margin:30px 0;
+}
+
+.board-header h1{
+    color:#4f2683;
+}
+
+.claim-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.modal-content{
+    background:white;
+    width:min(500px,90%);
+    padding:24px;
+    border-radius:16px;
+}
+
+.modal-content h2{
+    margin-bottom:20px;
+}
+
+.close-btn{
+    float:right;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.select-theme{
+    width:100%;
+}
+
+.board-legend{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.legend-item{
+    background:white;
+    padding:8px 14px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container">
+
+        <div class="logo-row">
+            <h1>🏈 Haskell United Way</h1>
+            <p>Vikings vs Saints Test Game</p>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="board.html">Board</a>
+            cards.htmlCards</a>
+            halloffame.htmlHall of Fame</a>
+            admin.htmlAdmin</a>
+        </nav>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <div class="board-header">
+
+        <h1>
+            🟣 Minnesota Vikings
+            vs
+            ⚜️ New Orleans Saints
+        </h1>
+
+        <p>
+            Click any open square to claim it.
+        </p>
+
+    </div>
+
+    <div class="board-legend">
+
+        <div class="legend-item">🏈 Football</div>
+        <div class="legend-item">🎳 Bowling</div>
+        <div class="legend-item">🎣 Fishing</div>
+        <div class="legend-item">🦌 Hunting</div>
+        <div class="legend-item">⚙️ Engineering</div>
+        <div class="legend-item">💜 Vikings</div>
+
+    </div>
+
+    <div id="board" class="board"></div>
+
+</main>
+
+<!-- Modal -->
+
+<div id="claimModal" class="claim-modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close-btn"
+            onclick="closeModal()">
+            ✖
+        </span>
+
+        <h2>Claim Square</h2>
+
+        <form id="claimForm">
+
+            <label>
+                Name
+            </label>
+
+            <input
+                id="playerName"
+                required>
+
+            <label>
+                Nickname
+            </label>
+
+            <input
+                id="nickname">
+
+            <label>
+                Department
+            </label>
+
+            <input
+                id="department">
+
+            <label>
+                Avatar Theme
+            </label>
+
+            <select
+                id="avatar"
+                class="select-theme">
+
+                <option value="🏈">🏈 Football</option>
+                <option value="🎳">🎳 Bowling</option>
+                <option value="🎣">🎣 Fishing</option>
+                <option value="🦌">🦌 Hunting</option>
+                <option value="⚙️">⚙️ Engineering</option>
+                <option value="💜">💜 Vikings</option>
+                <option value="⚜️">⚜️ Saints</option>
+                <option value="💙">💙 United Way</option>
+
+            </select>
+
+            <button
+                type="submit"
+                class="btn-primary">
+                Claim Square
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script type="module">
+
+import {
+    createPlayer,
+    claimSquare,
+    watchSquares
+}
+from "./js/firebase.js";
+
+const board =
+    document.getElementById("board");
+
+const modal =
+    document.getElementById(
+        "claimModal"
+    );
+
+let selectedSquare = null;
+
+function openModal(squareId){
+
+    selectedSquare =
+        squareId;
+
+    modal.style.display =
+        "flex";
+
+}
+
+window.closeModal = function(){
+
+    modal.style.display =
+        "none";
+
+}
+
+watchSquares(renderBoard);
+
+function renderBoard(squares){
+
+    board.innerHTML = "";
+
+    squares.sort((a,b)=>{
+
+        const rowDiff =
+            a.row - b.row;
+
+        if(rowDiff !== 0){
+
+            return rowDiff;
+
+        }
+
+        return a.col - b.col;
+
+    });
+
+    squares.forEach(square => {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className =
+            square.claimed
+            ? "square claimed"
+            : "square";
+
+        if(square.claimed){
+
+            div.innerHTML = `
+                <div class="square-avatar">
+                    ${square.avatar}
+                </div>
+                <div class="square-name">
+                    ${square.displayName}
+                </div>
+            `;
+
+        }
+
+        else{
+
+            div.innerHTML =
+                "<strong>+</strong>";
+
+            div.addEventListener(
+                "click",
+                () =>
+                    openModal(
+                        square.id
+                    )
+            );
+
+        }
+
+        board.appendChild(div);
+
+    });
+
+}
+
+document
+.getElementById(
+    "claimForm"
+)
+.addEventListener(
+    "submit",
+    async e => {
+
+        e.preventDefault();
+
+        try{
+
+            const name =
+                document
+                .getElementById(
+                    "playerName"
+                )
+                .value
+                .trim();
+
+            const nickname =
+                document
+                .getElementById(
+                    "nickname"
+                )
+                .value
+                .trim();
+
+            const department =
+                document
+                .getElementById(
+                    "department"
+                )
+                .value
+                .trim();
+
+            const avatar =
+                document
+                .getElementById(
+                    "avatar"
+                )
+                .value;
+
+            const playerId =
+                await createPlayer({
+
+                    name,
+
+                    nickname,
+
+                    department,
+
+                    avatar,
+
+                    created:
+                        new Date()
+                        .toISOString()
+
+                });
+
+            await claimSquare(
+
+                selectedSquare,
+
+                playerId,
+
+                name,
+
+                avatar
+
+            );
+
+            closeModal();
+
+            document
+            .getElementById(
+                "claimForm"
+            )
+            .reset();
+
+        }
+
+        catch(error){
+
+            console.error(
+                error
+            );
+
+            alert(
+                "Unable to claim square."
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

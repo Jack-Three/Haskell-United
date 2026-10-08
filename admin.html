@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Haskell United Way</title>
+
+css/style.css
+
+<style>
+
+.admin-header{
+    text-align:center;
+    margin:30px 0;
+}
+
+.output-box{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    margin-top:20px;
+    box-shadow:var(--shadow);
+}
+
+.number-grid{
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:6px;
+    margin-top:15px;
+}
+
+.number-cell{
+    background:#f4f6f8;
+    padding:12px;
+    text-align:center;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.score-form{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    margin-top:20px;
+}
+
+.game-info{
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container">
+
+        <div class="logo-row">
+            <h1>⚙️ Admin Dashboard</h1>
+            <p>Minnesota Vikings vs New Orleans Saints</p>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="board.html">Board</a>
+            <a href="cards.html">Trading Cards</a>
+            <a href="halloffame.html">Hall of Fame</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <div class="admin-header">
+
+        <h2>Game Administration</h2>
+
+        <p>
+            Manage the Vikings vs Saints test game.
+        </p>
+
+    </div>
+
+    <div class="game-info">
+
+        <h3>Current Game</h3>
+
+        <p>
+            Minnesota Vikings vs New Orleans Saints
+        </p>
+
+        <p>
+            Square Price: $1
+        </p>
+
+    </div>
+
+    <div class="admin-grid">
+
+        <div class="admin-card">
+
+            <h3>Generate Away Numbers</h3>
+
+            <button id="generateAway">
+                Generate Vikings Numbers
+            </button>
+
+        </div>
+
+        <div class="admin-card">
+
+            <h3>Generate Home Numbers</h3>
+
+            <button id="generateHome">
+                Generate Saints Numbers
+            </button>
+
+        </div>
+
+        <div class="admin-card">
+
+            <h3>Reset Board</h3>
+
+            <button id="resetBoard">
+                Clear Board
+            </button>
+
+        </div>
+
+        <div class="admin-card">
+
+            <h3>Export Data</h3>
+
+            <button id="exportData">
+                Export Players
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="output-box">
+
+        <h3>Vikings Numbers</h3>
+
+        <div id="awayNumbers" class="number-grid"></div>
+
+    </div>
+
+    <div class="output-box">
+
+        <h3>Saints Numbers</h3>
+
+        <div id="homeNumbers" class="number-grid"></div>
+
+    </div>
+
+    <div class="score-form">
+
+        <h3>Score Entry</h3>
+
+        <label>Vikings Score</label>
+        <input type="number" id="vikingsScore">
+
+        <label>Saints Score</label>
+        <input type="number" id="saintsScore">
+
+        <button
+            id="calculateWinner"
+            class="btn-primary">
+            Calculate Winning Digits
+        </button>
+
+        <div id="winnerOutput" class="mt-20"></div>
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+
+    <p>Haskell United Way NFL Squares</p>
+
+    <p>Admin Dashboard</p>
+
+</footer>
+
+<script type="module">
+
+import {
+    db,
+    shuffleNumbers
+}
+from "./js/firebase.js";
+
+import {
+    collection,
+    getDocs,
+    doc,
+    updateDoc
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const awayDiv =
+    document.getElementById(
+        "awayNumbers"
+    );
+
+const homeDiv =
+    document.getElementById(
+        "homeNumbers"
+    );
+
+document
+.getElementById("generateAway")
+.addEventListener(
+    "click",
+    async () => {
+
+        const nums =
+            shuffleNumbers();
+
+        renderNumbers(
+            awayDiv,
+            nums
+        );
+
+        alert(
+            "Vikings numbers generated."
+        );
+
+    }
+);
+
+document
+.getElementById("generateHome")
+.addEventListener(
+    "click",
+    async () => {
+
+        const nums =
+            shuffleNumbers();
+
+        renderNumbers(
+            homeDiv,
+            nums
+        );
+
+        alert(
+            "Saints numbers generated."
+        );
+
+    }
+);
+
+function renderNumbers(
+    container,
+    numbers
+){
+
+    container.innerHTML = "";
+
+    numbers.forEach(num => {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className =
+            "number-cell";
+
+        div.textContent =
+            num;
+
+        container.appendChild(
+            div
+        );
+
+    });
+
+}
+
+document
+.getElementById(
+    "calculateWinner"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const vikings =
+            parseInt(
+                document
+                .getElementById(
+                    "vikingsScore"
+                )
+                .value || 0
+            );
+
+        const saints =
+            parseInt(
+                document
+                .getElementById(
+                    "saintsScore"
+                )
+                .value || 0
+            );
+
+        const vikingsDigit =
+            vikings % 10;
+
+        const saintsDigit =
+            saints % 10;
+
+        document
+        .getElementById(
+            "winnerOutput"
+        )
+        .innerHTML = `
+            <h3>Winning Digits</h3>
+
+            <p>
+                Vikings:
+                <strong>${vikingsDigit}</strong>
+            </p>
+
+            <p>
+                Saints:
+                <strong>${saintsDigit}</strong>
+            </p>
+
+            <p>
+                Locate the matching square
+                on the board to determine
+                the winner.
+            </p>
+        `;
+
+    }
+);
+
+document
+.getElementById(
+    "exportData"
+)
+.addEventListener(
+    "click",
+    async () => {
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "players"
+                )
+            );
+
+        const players = [];
+
+        snapshot.forEach(doc => {
+
+            players.push({
+                id: doc.id,
+                ...doc.data()
+            });
+
+        });
+
+        const blob =
+            new Blob(
+                [
+                    JSON.stringify(
+                        players,
+                        null,
+                        2
+                    )
+                ],
+                {
+                    type:
+                    "application/json"
+                }
+            );
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+        link.href =
+            URL.createObjectURL(
+                blob
+            );
+
+        link.download =
+            "players.json";
+
+        link.click();
+
+    }
+);
+
+document
+.getElementById(
+    "resetBoard"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const confirmReset =
+            confirm(
+                "This is a placeholder. Firestore reset functionality will be added in V2.1."
+            );
+
+        if(confirmReset){
+
+            alert(
+                "Board reset feature coming in V2.1"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

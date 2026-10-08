@@ -1,1 +1,231 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>United Way Squares V1</title><link rel="stylesheet" href="style.css"></head><body><header><h1>🏈 United Way NFL Squares</h1><p>Trading Card Edition</p></header><div class="layout"><section><h2>Board Preview</h2><div id="board" class="board"></div></section><aside><h2>Trading Card</h2><div class="card"><div class="tier">GOLD CARD</div><img src="https://via.placeholder.com/300x220.png?text=Player+Photo"><h3>Jacob Roe</h3><p>The Hammer</p><div class="meta">Engineering • Vikings Fan</div><ul><li>Squares: 14</li><li>Wins: 3</li><li>Donations: $85</li></ul></div></aside></div><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haskell United Way Squares</title>
+
+    <link rel="stylesheet" href="cssheme-color" content="#00338D">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+
+        <div class="logo-row">
+            <h1>🏈 Haskell United Way</h1>
+            <p>NFL Squares Fundraiser</p>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <aard.htmlBoard</a>
+            <a href="cards.html">Trading Cards</a   <a href="halloffame.html">Hall of           <a href="admin.html">Admin  </nav>
+
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="container">
+
+            <div class="hero-content">
+
+                <h2>Current Test Board</h2>
+
+                <h3>
+                    Minnesota Vikings 🟣
+                    vs
+                    New Orleans Saints ⚜️
+                </h3>
+
+                <p>
+                    Welcome to the Haskell United Way Squares platform.
+                    This test game is being used to validate real-time board
+                    claiming, trading cards, fundraising tracking, and winner
+                    calculations.
+                </p>
+
+                board.html
+                    Enter Board
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="stats-section">
+
+        <div class="container">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span class="stat-label">Goal</span>
+                    <span class="stat-value">$100</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Raised</span>
+                    <span id="raisedAmount" class="stat-value">$0</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Squares Sold</span>
+                    <span id="squaresSold" class="stat-value">0 / 100</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Players</span>
+                    <span id="playerCount" class="stat-value">0</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="progress-section">
+
+        <div class="container">
+
+            <h2>Fundraising Progress</h2>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <p id="progressText">
+                0% Complete
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="game-section">
+
+        <div class="container">
+
+            <h2>Featured Matchup</h2>
+
+            <div class="game-card">
+
+                <div class="team">
+                    <div class="team-logo">🟣</div>
+                    <h3>Minnesota Vikings</h3>
+                </div>
+
+                <div class="versus">
+                    VS
+                </div>
+
+                <div class="team">
+                    <div class="team-logo">⚜️</div>
+                    <h3>New Orleans Saints</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="recent-winners">
+
+        <div class="container">
+
+            <h2>Recent Winners</h2>
+
+            <div class="winner-grid">
+
+                <div class="winner-card">
+                    <h3>Quarter 1</h3>
+                    <p>Awaiting Results</p>
+                </div>
+
+                <div class="winner-card">
+                    <h3>Halftime</h3>
+                    <p>Awaiting Results</p>
+                </div>
+
+                <div class="winner-card">
+                    <h3>Quarter 3</h3>
+                    <p>Awaiting Results</p>
+                </div>
+
+                <div class="winner-card">
+                    <h3>Final Score</h3>
+                    <p>Awaiting Results</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="about-section">
+
+        <div class="container">
+
+            <h2>How It Works</h2>
+
+            <ol>
+                <li>Create a trading card profile.</li>
+                <li>Claim one or more squares.</li>
+                <li>Numbers are randomly assigned when the board closes.</li>
+                <li>Winning squares are determined by the last digit of each team's score.</li>
+                <li>Support Haskell's United Way campaign while having fun.</li>
+            </ol>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <p>
+            Haskell United Way NFL Squares
+        </p>
+
+        <p>
+            Vikings vs Saints Test Game
+        </p>
+
+    </div>
+
+</footer>
+
+<script type="module">
+
+const squarePrice = 1;
+
+const sold = 0;
+const raised = sold * squarePrice;
+
+document.getElementById("squaresSold").innerText =
+    `${sold} / 100`;
+
+document.getElementById("raisedAmount").innerText =
+    `$${raised}`;
+
+const percent = raised / 100 * 100;
+
+document.getElementById("progressFill").style.width =
+    `${percent}%`;
+
+document.getElementById("progressText").innerText =
+    `${percent.toFixed(0)}% Complete`;
+
+</script>
+
+</body>
+</html>
