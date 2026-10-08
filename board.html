@@ -372,21 +372,29 @@ document
                 .value;
 
             const playerId =
-                await createPlayer({
+    await createPlayer({
 
-                    name,
+        name,
+        nickname,
+        department,
+        avatar,
 
-                    nickname,
+        created:
+            new Date()
+            .toISOString()
 
-                    department,
+    });
 
-                    avatar,
-
-                    created:
-                        new Date()
-                        .toISOString()
-
-                });
+localStorage.setItem(
+    "currentPlayer",
+    JSON.stringify({
+        playerId,
+        name,
+        nickname,
+        department,
+        avatar
+    })
+);
 
             await claimSquare(
     selectedSquare,
