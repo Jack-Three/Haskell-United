@@ -235,6 +235,42 @@ from "./js/firebase.js";
 
 const board =
     document.getElementById("board");
+function updateCurrentPlayerDisplay(){
+
+    const panel =
+        document.getElementById(
+            "currentPlayerInfo"
+        );
+
+    const player =
+        JSON.parse(
+            localStorage.getItem(
+                "currentPlayer"
+            )
+        );
+
+    if(!player){
+
+        panel.innerHTML = `
+            <strong>No Active Player</strong>
+            <br>
+            Create a trading card by claiming
+            your first square.
+        `;
+
+        return;
+    }
+
+    panel.innerHTML = `
+        <strong>${player.nickname}</strong>
+        <br>
+        ${player.department}
+        <br>
+        ${player.avatar}
+    `;
+}
+
+updateCurrentPlayerDisplay();    
 
 const modal =
     document.getElementById(
@@ -386,7 +422,18 @@ document
             .toISOString()
 
     });
+localStorage.setItem(
+    "currentPlayer",
+    JSON.stringify({
+        playerId,
+        name,
+        nickname,
+        department,
+        avatar
+    })
+);
 
+updateCurrentPlayerDisplay();
 localStorage.setItem(
     "currentPlayer",
     JSON.stringify({
