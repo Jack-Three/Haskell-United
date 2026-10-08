@@ -216,6 +216,7 @@
 import {
     createPlayer,
     claimSquare,
+    clearSquare,
     watchSquares
 }
 from "./js/firebase.js";
@@ -365,7 +366,40 @@ function renderBoard(squares){
                     ${square.displayName}
                 </div>
             `;
+div.addEventListener(
+    "click",
+    async () => {
 
+        const currentPlayer =
+            JSON.parse(
+                localStorage.getItem(
+                    "currentPlayer"
+                )
+            );
+
+        if(
+            currentPlayer &&
+            currentPlayer.nickname ===
+            square.displayName
+        ){
+
+            const removeSquare =
+                confirm(
+                    `Remove ${square.displayName}'s square?`
+                );
+
+            if(removeSquare){
+
+                await clearSquare(
+                    square.id
+                );
+
+            }
+
+        }
+
+    }
+);
         }
 
         else{
