@@ -170,5 +170,156 @@ export async function createBoardSquares() {
                 db,
                 "squares"
             )
-        
         );
+
+    if (!snapshot.empty) {
+        return;
+    }
+
+    const promises = [];
+
+    for (let row = 0; row < 10; row++) {
+
+        for (let col = 0; col < 10; col++) {
+
+            const id = `${row}-${col}`;
+
+            promises.push(
+
+                setDoc(
+                    doc(
+                        db,
+                        "squares",
+                        id
+                    ),
+                    {
+                        row,
+                        col,
+                        claimed: false,
+                        playerId: null,
+                        displayName: "",
+                        avatar: ""
+                    }
+                )
+
+            );
+
+        }
+
+    }
+
+    await Promise.all(promises);
+
+    console.log(
+        "100 board squares created."
+    );
+
+}
+
+export function watchSquares(callback) {
+
+    return onSnapshot(
+
+        collection(db, "squares"),
+
+        (snapshot) => {
+
+            const squares = [];
+
+            snapshot.forEach(docSnap => {
+
+                squares.push({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                });
+
+            });
+
+            callback(squares);
+
+        }
+
+    );
+
+}
+
+export async function createPlayer(player) {
+
+    const docRef =
+        await addDoc(
+            collection(
+                db,
+                "players"
+            ),
+            player
+        );
+
+    return docRef.id;
+
+}
+
+export async function claimSquare(
+    squareId,
+    playerId,
+    displayName,
+    avatar
+) {
+
+    const squareRef =
+        doc(
+            db,
+            "squares",
+            squareId
+        );
+
+    await updateDoc(
+        squareRef,
+        {
+            claimed: true,
+            playerId,
+            displayName,
+            avatar
+        }
+    );
+
+}
+
+export function shuffleNumbers() {
+
+    const numbers =
+        [0,1,2,3,4,5,6,7,8,9];
+
+    return numbers.sort(
+        () => Math.random() - 0.5
+    );
+
+}
+
+window.addEventListener(
+    "load",
+    async () => {
+
+        try {
+
+            await initializeAuth();
+
+            await createDefaultGame();
+
+            await createBoardSquares();
+
+            console.log(
+                "Firebase initialized."
+            );
+
+        }
+
+        catch(error) {
+
+            console.error(
+                error
+            );
+
+        }
+
+    }
+);
