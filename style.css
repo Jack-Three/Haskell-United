@@ -387,6 +387,54 @@ button{
     background:#d71920;
 }
 
+/* ==========================================
+   THEME BORDERS
+========================================== */
+
+.theme-vikings{
+    border:4px solid #4F2683;
+}
+
+.theme-saints{
+    border:4px solid #D3BC8D;
+}
+
+.theme-bowling{
+    border:4px solid #0066CC;
+}
+
+.theme-fishing{
+    border:4px solid #008B8B;
+}
+
+.theme-hunting{
+    border:4px solid #556B2F;
+}
+
+.theme-engineering{
+    border:4px solid #555555;
+}
+
+.theme-unitedway{
+    border:4px solid #D71920;
+}
+
+.theme-football{
+    border:4px solid #8B4513;
+}
+
+.theme-golf{
+    border:4px solid #228B22;
+}
+
+.theme-construction{
+    border:4px solid #FF8C00;
+}
+
+.theme-safety{
+    border:4px solid #FFD700;
+}
+
 /* =====================================================
    FORMS
 ===================================================== */
