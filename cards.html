@@ -207,22 +207,93 @@ function renderCards(players){
 
     players.forEach(player => {
 
-        let themeClass =
-            "theme-unitedway";
+    let themeClass = "theme-unitedway";
 
-        if(player.avatar === "💜")
-            themeClass = "theme-vikings";
+    if(player.avatar === "💜")
+        themeClass = "theme-vikings";
 
-        if(player.avatar === "⚜️")
-            themeClass = "theme-saints";
+    else if(player.avatar === "⚜️")
+        themeClass = "theme-saints";
 
-        if(player.avatar === "🎳")
-            themeClass = "theme-bowling";
+    else if(player.avatar === "🎳")
+        themeClass = "theme-bowling";
 
-        if(player.avatar === "🎣")
-            themeClass = "theme-fishing";
+    else if(player.avatar === "🎣")
+        themeClass = "theme-fishing";
 
-        if(player.avatar === "🦌")
-            themeClass = "theme-hunting";
+    else if(player.avatar === "🦌")
+        themeClass = "theme-hunting";
 
-        if(player
+    else if(player.avatar === "⚙️")
+        themeClass = "theme-engineering";
+
+    const card = document.createElement("div");
+
+    card.className =
+        `trading-card ${themeClass}`;
+
+    card.innerHTML = `
+        <div class="card-header">
+            HASKELL UNITED WAY
+        </div>
+
+        <div class="avatar-large">
+            ${player.avatar || "🏈"}
+        </div>
+
+        <div class="card-body">
+
+            <h3>
+                ${player.name || "Unknown"}
+            </h3>
+
+            <p>
+                "${player.nickname || ""}"
+            </p>
+
+            <div class="card-stat">
+                <strong>Department</strong>
+                <span>
+                    ${player.department || "N/A"}
+                </span>
+            </div>
+
+            <div class="card-stat">
+                <strong>Theme</strong>
+                <span>
+                    ${player.avatar || "🏈"}
+                </span>
+            </div>
+
+            <div class="card-stat">
+                <strong>Wins</strong>
+                <span>0</span>
+            </div>
+
+            <div class="card-stat">
+                <strong>Squares</strong>
+                <span>TBD</span>
+            </div>
+
+            <div class="card-date">
+                Created:
+                ${
+                    player.created
+                    ? new Date(player.created).toLocaleDateString()
+                    : "Unknown"
+                }
+            </div>
+
+        </div>
+    `;
+
+    cardsContainer.appendChild(card);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
