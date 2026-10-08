@@ -634,3 +634,219 @@ label{
     border:4px solid #00338D;
 }
 `
+/* ====================================================
+   NFL TEAM SQUARE THEMES
+==================================================== */
+
+.square-nickname{
+    font-weight:700;
+    font-size:.9rem;
+}
+
+/* NFC NORTH */
+
+.team-min{
+    background:#4F2683 !important;
+    border:3px solid #FFC62F !important;
+    color:white;
+}
+
+.team-gb{
+    background:#203731 !important;
+    border:3px solid #FFB612 !important;
+    color:white;
+}
+
+.team-det{
+    background:#0076B6 !important;
+    border:3px solid #B0B7BC !important;
+    color:white;
+}
+
+.team-chi{
+    background:#0B162A !important;
+    border:3px solid #C83803 !important;
+    color:white;
+}
+
+/* NFC SOUTH */
+
+.team-atl{
+    background:#A71930 !important;
+    border:3px solid #000000 !important;
+    color:white;
+}
+
+.team-car{
+    background:#0085CA !important;
+    border:3px solid #101820 !important;
+    color:white;
+}
+
+.team-no{
+    background:#101820 !important;
+    border:3px solid #D3BC8D !important;
+    color:white;
+}
+
+.team-tb{
+    background:#D50A0A !important;
+    border:3px solid #34302B !important;
+    color:white;
+}
+
+/* NFC EAST */
+
+.team-dal{
+    background:#003594 !important;
+    border:3px solid #869397 !important;
+    color:white;
+}
+
+.team-nyg{
+    background:#0B2265 !important;
+    border:3px solid #A71930 !important;
+    color:white;
+}
+
+.team-phi{
+    background:#004C54 !important;
+    border:3px solid #A5ACAF !important;
+    color:white;
+}
+
+.team-was{
+    background:#5A1414 !important;
+    border:3px solid #FFB612 !important;
+    color:white;
+}
+
+/* NFC WEST */
+
+.team-ari{
+    background:#97233F !important;
+    border:3px solid #000000 !important;
+    color:white;
+}
+
+.team-lar{
+    background:#003594 !important;
+    border:3px solid #FFD100 !important;
+    color:white;
+}
+
+.team-sf{
+    background:#AA0000 !important;
+    border:3px solid #B3995D !important;
+    color:white;
+}
+
+.team-sea{
+    background:#002244 !important;
+    border:3px solid #69BE28 !important;
+    color:white;
+}
+
+/* AFC NORTH */
+
+.team-bal{
+    background:#241773 !important;
+    border:3px solid #9E7C0C !important;
+    color:white;
+}
+
+.team-cin{
+    background:#FB4F14 !important;
+    border:3px solid #000000 !important;
+    color:white;
+}
+
+.team-cle{
+    background:#311D00 !important;
+    border:3px solid #FF3C00 !important;
+    color:white;
+}
+
+.team-pit{
+    background:#101820 !important;
+    border:3px solid #FFB612 !important;
+    color:white;
+}
+
+/* AFC SOUTH */
+
+.team-hou{
+    background:#03202F !important;
+    border:3px solid #A71930 !important;
+    color:white;
+}
+
+.team-ind{
+    background:#002C5F !important;
+    border:3px solid #A2AAAD !important;
+    color:white;
+}
+
+.team-jax{
+    background:#006778 !important;
+    border:3px solid #D7A22A !important;
+    color:white;
+}
+
+.team-ten{
+    background:#0C2340 !important;
+    border:3px solid #4B92DB !important;
+    color:white;
+}
+
+/* AFC EAST */
+
+.team-buf{
+    background:#00338D !important;
+    border:3px solid #C60C30 !important;
+    color:white;
+}
+
+.team-mia{
+    background:#008E97 !important;
+    border:3px solid #FC4C02 !important;
+    color:white;
+}
+
+.team-ne{
+    background:#002244 !important;
+    border:3px solid #C60C30 !important;
+    color:white;
+}
+
+.team-nyj{
+    background:#125740 !important;
+    border:3px solid #FFFFFF !important;
+    color:white;
+}
+
+/* AFC WEST */
+
+.team-den{
+    background:#FB4F14 !important;
+    border:3px solid #002244 !important;
+    color:white;
+}
+
+.team-kc{
+    background:#E31837 !important;
+    border:3px solid #FFB81C !important;
+    color:white;
+}
+
+.team-lv{
+    background:#000000 !important;
+    border:3px solid #A5ACAF !important;
+    color:white;
+}
+
+.team-lac{
+    background:#0080C6 !important;
+    border:3px solid #FFC20E !important;
+    color:white;
+}
