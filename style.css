@@ -563,3 +563,74 @@ label{
         font-size:1rem;
     }
 }
+.current-player-card{
+
+    background:white;
+    padding:20px;
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:25px;
+
+    text-align:center;
+
+}
+
+.team-min{
+    border:4px solid #4F2683;
+}
+
+.team-no{
+    border:4px solid #D3BC8D;
+}
+
+.team-gb{
+    border:4px solid #203731;
+}
+
+.team-det{
+    border:4px solid #0076B6;
+}
+
+.team-chi{
+    border:4px solid #0B162A;
+}
+
+.team-kc{
+    border:4px solid #E31837;
+}
+
+.team-mia{
+    border:4px solid #008E97;
+}
+
+.team-dal{
+    border:4px solid #003594;
+}
+
+.team-phi{
+    border:4px solid #004C54;
+}
+
+.team-sf{
+    border:4px solid #AA0000;
+}
+
+.team-sea{
+    border:4px solid #69BE28;
+}
+
+.team-bal{
+    border:4px solid #241773;
+}
+
+.team-pit{
+    border:4px solid #FFB612;
+}
+
+.team-buf{
+    border:4px solid #00338D;
+}
+`
