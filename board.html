@@ -293,14 +293,11 @@ function renderBoard(squares){
 
         if(square.claimed){
 
-            div.innerHTML = `
-                <div class="square-avatar">
-                    ${square.avatar}
-                </div>
-                <div class="square-name">
-                    ${square.displayName}
-                </div>
-            `;
+div.innerHTML = `
+    <div class="square-name">
+        ${square.displayName}
+    </div>
+`;
 
         }
 
