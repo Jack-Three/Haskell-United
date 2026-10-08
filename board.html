@@ -286,22 +286,28 @@ function renderBoard(squares){
                 "div"
             );
 
-        div.className =
-            square.claimed
-            ? "square claimed"
-            : "square";
-
         if(square.claimed){
 
-div.innerHTML = `
-    <div class="square-name">
-        ${square.displayName}
-    </div>
-`;
+            const teamClass =
+                square.avatar
+                ? `team-${square.avatar.toLowerCase()}`
+                : "";
+
+            div.className =
+                `square claimed ${teamClass}`;
+
+            div.innerHTML = `
+                <div class="square-nickname">
+                    ${square.displayName}
+                </div>
+            `;
 
         }
 
         else{
+
+            div.className =
+                "square";
 
             div.innerHTML =
                 "<strong>+</strong>";
