@@ -378,16 +378,11 @@ function renderBoard(squares){
                     )
                 );
 
-            console.log(
-                "Square clicked",
-                square.displayName,
-                currentPlayer
-            );
-
             if(
                 currentPlayer &&
-                currentPlayer.nickname ===
-                square.displayName
+                currentPlayer.nickname &&
+                currentPlayer.nickname.toLowerCase() ===
+                square.displayName.toLowerCase()
             ){
 
                 const removeSquare =
@@ -409,40 +404,6 @@ function renderBoard(squares){
     );
 
 }
-div.addEventListener(
-    "click",
-    async () => {
-
-        const currentPlayer =
-            JSON.parse(
-                localStorage.getItem(
-                    "currentPlayer"
-                )
-            );
-
-        if(
-            currentPlayer &&
-            currentPlayer.nickname ===
-            square.displayName
-        ){
-
-            const removeSquare =
-                confirm(
-                    `Remove ${square.displayName}'s square?`
-                );
-
-            if(removeSquare){
-
-                await clearSquare(
-                    square.id
-                );
-
-            }
-
-        }
-
-    }
-);
 
         else{
 
