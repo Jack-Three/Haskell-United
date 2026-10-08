@@ -164,18 +164,6 @@ export async function createDefaultGame() {
 
 export async function createBoardSquares() {
 
-    const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "squares"
-            )
-        );
-
-    if (!snapshot.empty) {
-        return;
-    }
-
     const promises = [];
 
     for (let row = 0; row < 10; row++) {
@@ -184,17 +172,15 @@ export async function createBoardSquares() {
 
             const id = `${row}-${col}`;
 
+            console.log(`Creating ${id}`);
+
             promises.push(
 
                 setDoc(
-                    doc(
-                        db,
-                        "squares",
-                        id
-                    ),
+                    doc(db, "squares", id),
                     {
-                        row,
-                        col,
+                        row: row,
+                        col: col,
                         claimed: false,
                         playerId: null,
                         displayName: "",
@@ -210,9 +196,7 @@ export async function createBoardSquares() {
 
     await Promise.all(promises);
 
-    console.log(
-        "100 board squares created."
-    );
+    console.log("100 board squares created");
 
 }
 
