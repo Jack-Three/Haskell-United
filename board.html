@@ -265,12 +265,16 @@ let selectedSquare = null;
 
 function openModal(squareId){
 
-    selectedSquare =
-        squareId;
+    selectedSquare = squareId;
 
-    modal.style.display =
-        "flex";
+    const currentPlayer =
+        JSON.parse(
+            localStorage.getItem(
+                "currentPlayer"
+            )
+        );
 
+    ...
 }
 
 window.closeModal = function(){
