@@ -111,20 +111,7 @@
 
 <div class="current-player-card">
 
-   <div id="currentPlayerInfo">
-    Loading...
-</div>
-
-        <strong>
-            No Active Player
-        </strong>
-
-        <br>
-
-        Create a trading card by claiming
-        your first square.
-
-    </div>
+   <div id="currentPlayerInfo"></div>
 
 </div>
     <div id="board" class="board"></div>
@@ -251,14 +238,11 @@ function updateCurrentPlayerDisplay(){
 
     if(!player){
 
-        panel.innerHTML = `
-            <strong>No Active Player</strong>
-            <br>
-            Create a trading card by claiming
-            your first square.
-        `;
+        panel.innerHTML =
+            "No Active Player";
 
         return;
+
     }
 
     panel.innerHTML = `
