@@ -274,7 +274,19 @@ function openModal(squareId){
             )
         );
 
-    ...
+    if(currentPlayer){
+
+        quickClaim(
+            currentPlayer
+        );
+
+        return;
+
+    }
+
+    modal.style.display =
+        "flex";
+
 }
 
 window.closeModal = function(){
@@ -283,7 +295,33 @@ window.closeModal = function(){
         "none";
 
 }
+async function quickClaim(player){
 
+    try{
+
+        await claimSquare(
+
+            selectedSquare,
+
+            player.playerId,
+
+            player.nickname,
+
+            player.avatar
+
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
+}
 watchSquares(renderBoard);
 
 function renderBoard(squares){
@@ -397,19 +435,56 @@ document
                 )
                 .value;
 
-            const playerId =
-    await createPlayer({
+            let currentPlayer =
+    JSON.parse(
+        localStorage.getItem(
+            "currentPlayer"
+        )
+    );
 
-        name,
-        nickname,
-        department,
-        avatar,
+let playerId;
 
-        created:
-            new Date()
-            .toISOString()
+if(currentPlayer){
 
-    });
+    playerId =
+        currentPlayer.playerId;
+
+}
+else{
+
+    playerId =
+        await createPlayer({
+
+            name,
+            nickname,
+            department,
+            avatar,
+
+            created:
+                new Date()
+                .toISOString()
+
+        });
+
+    localStorage.setItem(
+
+        "currentPlayer",
+
+        JSON.stringify({
+
+            playerId,
+            name,
+            nickname,
+            department,
+            avatar
+
+        })
+
+    );
+
+    updateCurrentPlayerDisplay();
+
+}
 localStorage.setItem(
     "currentPlayer",
     JSON.stringify({
