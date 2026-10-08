@@ -353,19 +353,62 @@ function renderBoard(squares){
 
         if(square.claimed){
 
-            const teamClass =
-                square.avatar
-                ? `team-${square.avatar.toLowerCase()}`
-                : "";
+    const teamClass =
+        square.avatar
+        ? `team-${square.avatar.toLowerCase()}`
+        : "";
 
-            div.className =
-                `square claimed ${teamClass}`;
+    div.className =
+        `square claimed ${teamClass}`;
 
-            div.innerHTML = `
-                <div class="square-nickname">
-                    ${square.displayName}
-                </div>
-            `;
+    div.innerHTML = `
+        <div class="square-nickname">
+            ${square.displayName}
+        </div>
+    `;
+
+    div.addEventListener(
+        "click",
+        async () => {
+
+            const currentPlayer =
+                JSON.parse(
+                    localStorage.getItem(
+                        "currentPlayer"
+                    )
+                );
+
+            console.log(
+                "Square clicked",
+                square.displayName,
+                currentPlayer
+            );
+
+            if(
+                currentPlayer &&
+                currentPlayer.nickname ===
+                square.displayName
+            ){
+
+                const removeSquare =
+                    confirm(
+                        `Remove ${square.displayName}'s square?`
+                    );
+
+                if(removeSquare){
+
+                    await clearSquare(
+                        square.id
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+}
 div.addEventListener(
     "click",
     async () => {
