@@ -1,0 +1,1 @@
+const b=document.getElementById("board");for(let i=0;i<100;i++){const d=document.createElement("div");d.className='sq';d.title='Trading Card Square';d.style.backgroundImage='url(https://via.placeholder.com/80.png?text=%F0%9F%8F%88)';b.appendChild(d);}
